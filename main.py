@@ -8,6 +8,10 @@ if config['features_enabled'] is not None:
 
 print("Starting parrotbot...", flush=True, file=info_stream)
 
+@dc_app.event
+async def on_ready():
+	print(f"Logged in to Discord as {dc_app.user} (ID: {dc_app.user.id})", file=info_stream)
+
 
 @slack_app.command("/parrotcheckhealth")
 async def parrotcheckhealth(client, ack, body, say):
@@ -47,7 +51,8 @@ async def main():
 				print(f"Joined {chan['name']}", flush=True, file=info_stream)
 		cursor = conversations['response_metadata']['next_cursor']
 	slack_handler = AsyncSocketModeHandler(slack_app, config['slack_app_token'])
-	await slack_handler.start_async()
+
+	await asyncio.gather(slack_handler.start_async(), dc_app.start(token=config['discord_token']))
 
 if __name__ == "__main__":
 	import asyncio
