@@ -1,3 +1,7 @@
+import io
+from datetime import datetime
+
+import discord.ext.commands
 from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
 
 from shared import *
@@ -12,6 +16,16 @@ print("Starting parrotbot...", flush=True, file=info_stream)
 async def on_ready():
 	print(f"Logged in to Discord as {dc_app.user} (ID: {dc_app.user.id})", file=info_stream)
 
+@dc_app.command(name="sync-command-tree")
+async def sync_command_tree(ctx: discord.ext.commands.Context):
+	invoker = ctx.message.author
+	if invoker.top_role >= invoker.guild.get_role(config['discord']['min_sync_roleid']) \
+		or invoker == invoker.guild.owner:
+		dc_app.tree.copy_global_to(guild=guild)
+		await dc_app.tree.sync(guild=guild)
+		await ctx.reply("Synced the command tree.")
+	else:
+		await ctx.reply("You don't have a high enough role to invoke this command.")
 
 @slack_app.command("/parrotcheckhealth")
 async def parrotcheckhealth(client, ack, body, say):
@@ -39,6 +53,19 @@ async def parrotcheckhealth(client, ack, body, say):
 			await say("\n```\n" + msg + '```', unfurl_media = False, unfurl_links=False)
 		await ack()
 
+@dc_app.tree.command(name="parrotcheckhealth")
+async def dc_parrotcheckhealth(interaction: discord.Interaction):
+	log = await async_check_output(config['log']['command'], shell=True)
+	log = log.decode().replace('files.slack.com', '********')
+	timestamp = datetime.now()
+	if len(log) > 2000:
+		# Too long so upload a text file instead, this looks better imo than a series of embeds.
+		dc_logfile = discord.File(io.StringIO(log), filename=f'parrotbotlog_{timestamp.strftime('%Y%M%d_%H%m%s')}.txt')
+		await interaction.response.send_message("I'm running! Here is my log:", file=dc_logfile)
+	else:
+		await interaction.response.send_message(f"I'm running! Here is my log:\n"
+												f"```\n{log}```\n")
+
 
 async def main():
 	# why no do while python??
@@ -52,7 +79,7 @@ async def main():
 		cursor = conversations['response_metadata']['next_cursor']
 	slack_handler = AsyncSocketModeHandler(slack_app, config['slack_app_token'])
 
-	await asyncio.gather(slack_handler.start_async(), dc_app.start(token=config['discord_token']))
+	await asyncio.gather(slack_handler.start_async(), dc_app.start(token=config['discord']['token']))
 
 if __name__ == "__main__":
 	import asyncio

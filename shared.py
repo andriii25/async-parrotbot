@@ -71,6 +71,8 @@ config = yaml.load(open(config_file), Loader=yaml.loader.FullLoader)
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
+guild = discord.Object(id=config['discord']['guild_id'])
 
 dc_app = commands.Bot(command_prefix='$', description="Testy-test", intents=intents)
 slack_app = AsyncApp(token = config['slack_bot_token'])
