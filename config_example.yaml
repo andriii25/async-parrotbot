@@ -1,6 +1,11 @@
 slack_app_token: xapp-...
 slack_bot_token: xoxb-...
 
+discord:
+  token: ...
+  guild_id: ...
+  min_sync_roleid: ...
+
 features_enabled:
   - live_archive
   - parrotmaker
@@ -10,9 +15,12 @@ live_archive:
   archive_path: /var/opt/async-parrotbot/slack-archive
 
 gdrive:
-  local_path: /var/opt/async-parrotbot/files
-  remote_path: parrotbot-gdrive:"999 Slack Staging"
-  remote_nice_name: 999 Slack Staging
+  slack_local_path: /var/opt/async-parrotbot/files
+  slack_remote_path: parrotbot-gdrive:"999 Slack Staging"
+  slack_remote_nice_name: 999 Slack Staging
+  discord_local_path: /var/opt/async-parrotbot/files/discord
+  discord_remote_path: parrotbot-gdrive:"998 Discord Staging"
+  discord_remote_nice_name: 998 Discord Staging
   rclone_log_path: /var/log/async-parrotbot/rclone-log
 
 log:
