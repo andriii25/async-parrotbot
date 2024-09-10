@@ -12,16 +12,16 @@ async def handle_file_shared(client, event, say, ack):
 
 	normalised_name = user_data['real_name'].replace(" ", "_")
 	file_url = file_data['url_private_download']
-	file_path = Path(f"{config['gdrive']['local_path']}") / f"{normalised_name}" / file_data['name']
+	file_path = Path(f"{config['gdrive']['slack_local_path']}") / f"{normalised_name}" / file_data['name']
 	headers = {
 		"Authorization": f"Bearer {config['slack_bot_token']}",
 	}
 	await download_file(file_path, file_url, headers)
 
-	dir_nice_name = f"{config['gdrive']['remote_nice_name']}/{normalised_name}"
+	dir_nice_name = f"{config['gdrive']['slack_remote_nice_name']}/{normalised_name}"
 	msg_data = (await say(f"File uploading to {dir_nice_name}...")).data
 	rclone_log = Path(config['gdrive']['rclone_log_path'])
-	returncode = await rclone_sync(config['gdrive']['local_path'], config['gdrive']['remote_path'], rclone_log)
+	returncode = await rclone_sync(config['gdrive']['slack_local_path'], config['gdrive']['slack_remote_path'], rclone_log)
 
 	await client.chat_update(
 		channel  = msg_data['channel'],
