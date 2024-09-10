@@ -74,5 +74,5 @@ intents.message_content = True
 intents.members = True
 guild = discord.Object(id=config['discord']['guild_id'])
 
-dc_app = commands.Bot(command_prefix='$', description="Testy-test", intents=intents)
+dc_app = commands.Bot(command_prefix='$', help_command=None, intents=intents)
 slack_app = AsyncApp(token = config['slack_bot_token'])
