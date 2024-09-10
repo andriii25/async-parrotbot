@@ -1,5 +1,5 @@
 # Async ParrotBot
-An asynchronous rewrite of CUSF slack tools, which will eventually support multiple tools.
+An asynchronous rewrite of CUSF slack tools, now supporting both Slack and Discord.
 
 ## Parrotmaker
 <pre>
@@ -10,6 +10,11 @@ use it with `/parrot message`
 
 ![parrotmaker example](parrotmaker_example.gif)
 
+This does not really work in Discord due to the combination 
+of the 2000 character message limit and emojis counted by their 
+long name + emoji id. 
+A 3x3 font could work but it would be practically illegible.
+
 ## PONG
 
 Pong was removed as it would have been a bit annoying to reimplement for now.
@@ -18,6 +23,7 @@ Something better will come, probably. I think. Maybe not, we'll see.
 ## Google Drive Auto Upload
 Literally the only thing useful about parrotbot. But it's boring so that's why
 it's at the bottom.
+Works both on Slack and Discord.
 
 ## Setting it up
 
