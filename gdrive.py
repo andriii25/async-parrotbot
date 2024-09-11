@@ -41,7 +41,7 @@ async def on_message(msg: discord.Message):
 		coros = [download_file(fp, url) for fp, url in zip(file_paths, file_urls)]
 		await asyncio.gather(*coros)
 
-		dir_nice_name = f"{config["gdrive"]["discord_remote_nice_name"]}/{normalised_name}"
+		dir_nice_name = f"{config['gdrive']['discord_remote_nice_name']}/{normalised_name}"
 		status_msg = await msg.reply(f"{len(msg.attachments)} file(s) uploading to {dir_nice_name}...")
 
 		rclone_log = Path(config['gdrive']['rclone_log_path'])
