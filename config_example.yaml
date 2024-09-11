@@ -22,6 +22,10 @@ gdrive:
   discord_local_path: /var/opt/async-parrotbot/files/discord
   discord_remote_path: parrotbot-gdrive:"998 Discord Staging"
   discord_remote_nice_name: 998 Discord Staging
+  discord_excluded_category_ids:
+    - ...
+  discord_excluded_channel_ids:
+    - ...
   rclone_log_path: /var/log/async-parrotbot/rclone-log
 
 log:
