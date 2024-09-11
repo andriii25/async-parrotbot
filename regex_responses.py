@@ -21,7 +21,7 @@ def init_responses(reset_cooldowns: bool = False):
 @dc_app.listen()
 async def on_message(msg: discord.Message):
 	# Filter out commands and ParrotBot messages
-	if msg.content[0] != '$' and msg.author != dc_app.user:
+	if len(msg.content) > 0 and msg.content[0] != '$' and msg.author != dc_app.user:
 		response = None
 		for regex_response in regex_responses:
 			response = regex_response.check_response(msg.content)
