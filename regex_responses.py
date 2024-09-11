@@ -52,7 +52,7 @@ async def reset_cooldown(interaction: discord.Interaction, response_name: str):
 
 
 @dc_app.tree.command(name="reloadresponses")
-@discord.app_commands.describe(reset_cooldown="Resets cooldown of all RegEx responses if True (default False)")
+@discord.app_commands.describe(reset_cooldowns="Resets cooldown of all RegEx responses if True (default False)")
 async def reload_responses(interaction: discord.Interaction, reset_cooldowns: bool = False):
 	"""Reloads all RegEx responses, does not affect cooldown files."""
 	await interaction.response.send_message("Reloading responses...", ephemeral=True)

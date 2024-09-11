@@ -10,6 +10,7 @@ features_enabled:
   - live_archive
   - parrotmaker
   - gdrive
+  - regex_responses
 
 live_archive:
   archive_path: /var/opt/async-parrotbot/slack-archive
