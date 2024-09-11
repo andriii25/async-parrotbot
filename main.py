@@ -60,7 +60,7 @@ async def dc_parrotcheckhealth(interaction: discord.Interaction):
 	timestamp = datetime.now()
 	if len(log) > 2000:
 		# Too long so upload a text file instead, this looks better imo than a series of embeds.
-		dc_logfile = discord.File(io.StringIO(log), filename=f'parrotbotlog_{timestamp.strftime('%Y%M%d_%H%m%s')}.txt')
+		dc_logfile = discord.File(io.StringIO(log), filename=f"parrotbotlog_{timestamp.strftime('%Y%M%d_%H%m%s')}.txt")
 		await interaction.response.send_message("I'm running! Here is my log:", file=dc_logfile)
 	else:
 		await interaction.response.send_message(f"I'm running! Here is my log:\n"
