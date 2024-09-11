@@ -30,7 +30,7 @@ class RegexResponse:
 		self.cooldown_file = config_path.with_suffix(".cooldown")
 		regex_flags = RegexFlag.IGNORECASE
 		if "case_insensitive" in response_config and not response_config["case_insensitive"]:
-				regex_flags = re.NOFLAG
+				regex_flags = 0
 		self.regex = re.compile(self.raw_pattern_string, regex_flags)
 		print(f"Created RegEx response with pattern {self.regex}", file=debug_stream, flush=True)
 	def is_on_cooldown(self):
