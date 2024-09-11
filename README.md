@@ -20,6 +20,19 @@ A 3x3 font could work but it would be practically illegible.
 Pong was removed as it would have been a bit annoying to reimplement for now.
 Something better will come, probably. I think. Maybe not, we'll see.
 
+## RegEx responses
+
+![regex_responses_example](regex_responses_example.png)
+
+Ever needed your bot to chat shit on your behalf when you're asleep?
+RegEx responses has got your back, have a look at [example_response.yaml](example_response.yaml) to see how it works
+and drop your responses in the directory specified in the main configuratio file.
+When multiple option are present one is randomly chosen, and each response has a cooldown
+so parrotbot won't spam the server constantly either. 
+
+This only works on Discord because I was lazy to find how to add multiple
+on_message listeners in the Slack Bolt API, probably an easy fix.
+
 ## Google Drive Auto Upload
 Literally the only thing useful about parrotbot. But it's boring so that's why
 it's at the bottom.

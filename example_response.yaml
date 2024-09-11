@@ -1,0 +1,14 @@
+name: example
+pattern: "\\bexample\\b" # note double quotes and escaping \
+cooldown: 30 # minutes, fractional values are allowed
+case_insensitive: false # this is optional, if omitted true is assumed
+responses:
+  - This is a great example response.
+  - And this is a second example response.
+  - > 
+    and this is a long response split in 
+    multiple lines in the YAML but remains a single line in
+    the response.
+  # Don't forget to remove trailing whitespace in multiline responses.
+  # Keep in mind Discord's 2000-character limit for a message.
+
