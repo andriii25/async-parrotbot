@@ -1,5 +1,6 @@
 from pathlib import Path
 import aiohttp
+import discord
 
 from shared import *
 
@@ -33,7 +34,9 @@ async def handle_file_shared(client, event, say, ack):
 # from multiple files (i.e. when writing future features)
 @dc_app.listen()
 async def on_message(msg: discord.Message):
-	if msg.attachments:
+	private_channel_types = [discord.ChannelType.private, discord.ChannelType.group, discord.ChannelType.private_thread]
+	# Do not save files sent in private groups
+	if msg.attachments and msg.channel.type not in private_channel_types:
 		print(f"{len(msg.attachments)} file(s) shared by {msg.author.display_name}", flush=True, file=info_stream)
 		normalised_name = msg.author.display_name.replace(" ", "_")
 		file_paths = [Path(f"{config['gdrive']['discord_local_path']}") / f"{normalised_name}" / a.filename for a in msg.attachments]
